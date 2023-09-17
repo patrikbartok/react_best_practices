@@ -6,7 +6,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import { Spinner } from '@/components/Elements/Spinner'
+import { LoadingSpinner } from '@/components/Elements/Spinner'
 import { ErrorFallback } from '@/components/ErrorFallback'
 import { Notifications } from '@/components/Notifications'
 import { queryClient } from '@/lib/react-query'
@@ -21,7 +21,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     <React.Suspense
       fallback={
         <div className='flex items-center justify-center w-screen h-screen'>
-          <Spinner />
+          <LoadingSpinner />
         </div>
       }
     >

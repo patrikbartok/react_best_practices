@@ -4,7 +4,7 @@ import { ArtworkDetails } from '../components/ArtworkDetails'
 import { ArtworkList } from '../components/ArtworkList'
 import { FavouriteArtworkList } from '../components/FavouriteArtworkList'
 
-import { NavbarSimple } from '@/components/Elements/Navbar'
+import { NavbarSimple } from '@/components/Navbar'
 
 export const ArtworksPageRoutes = () => {
   return (
@@ -18,7 +18,7 @@ export const ArtworksPageRoutes = () => {
       />
       <Routes>
         <Route path='browse' element={<ArtworkList />} />
-        <Route path='browse/:artworkId' element={<ArtworkDetails />} />
+        <Route path='browse/:artworkIdParam' element={<ArtworkDetails />} />
         <Route path='favourites' element={<FavouriteArtworkList />} />
       </Routes>
     </>

@@ -20,8 +20,8 @@ export const getArtworks = (
 type QueryFnType = typeof getArtworks
 
 export type UseArtworksParams = {
-  page: number
-  limit: number
+  page: string
+  limit: string
   q: string
   config?: QueryConfig<QueryFnType>
 }

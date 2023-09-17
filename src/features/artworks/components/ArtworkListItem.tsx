@@ -22,17 +22,18 @@ export const ArtworkListItem = ({ artwork }: ArtworkItemProps) => {
 
   const dispatch = useAppDispatch()
 
-  const toggleFavorite = () => {
+  const toggleFavorite: React.MouseEventHandler<SVGSVGElement> = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
     if (isFavourite) {
       dispatch(removeFavouriteArtworkById(artwork.id))
     } else {
-      console.log('remove')
       dispatch(addFavouriteArtwork(artwork))
     }
   }
 
   return (
-    <NavLink to={`./${artwork.id}`}>
+    <NavLink to={`/public/artworks/browse/${artwork.id}`}>
       <figure className='relative h-96 w-full'>
         <img
           className='h-full w-full rounded-xl object-cover object-center hover:shadow-xl hover:shadow-blue-gray-900/50'
@@ -40,8 +41,8 @@ export const ArtworkListItem = ({ artwork }: ArtworkItemProps) => {
           alt={`Image for ${artwork.title}`}
         />
         <StarIcon
-          className={`absolute top-4 right-4 h-10 text-white ${
-            isFavourite ? 'text-yellow-500 hover:text-white' : 'hover:text-yellow-500'
+          className={`absolute top-4 right-4 h-10 text-white active:text-yellow-200 cursor-pointer ${
+            isFavourite ? 'text-yellow-500' : ''
           }`}
           onClick={toggleFavorite}
         />

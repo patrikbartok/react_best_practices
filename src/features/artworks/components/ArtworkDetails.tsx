@@ -1,20 +1,48 @@
+import { StarIcon } from '@heroicons/react/20/solid'
 import { useParams } from 'react-router-dom'
 
 import { useArtwork } from '../api/getArtwork'
 
-import { Spinner } from '@/components/Elements/Spinner'
+import { LoadingSpinner } from '@/components/Elements/Spinner'
 import { Head } from '@/components/Head'
+import {
+  addFavouriteArtwork,
+  removeFavouriteArtworkById,
+  selectFavouriteArtworks
+} from '@/stores/favouriteArtworksReduxSlice'
+import { useAppDispatch, useAppSelector } from '@/stores/reduxStoreHooks'
 
 export const ArtworkDetails = () => {
-  const { artworkId } = useParams()
-  const { data, isLoading } = useArtwork(Number(artworkId))
+  const { artworkIdParam } = useParams()
+  const artworkId = Number(artworkIdParam)
+  const { data, isLoading } = useArtwork(artworkId)
+  const favouriteArtworks = useAppSelector(selectFavouriteArtworks)
+  const favourite = favouriteArtworks.find((favArtwork) => favArtwork.id === artworkId)
+  const isFavourite = !!favourite
+  const dispatch = useAppDispatch()
 
   if (isLoading) {
-    return <Spinner />
+    return <LoadingSpinner />
   }
 
   if (!data) {
     return null
+  }
+
+  const toggleFavorite: React.MouseEventHandler<SVGSVGElement> = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (isFavourite) {
+      dispatch(removeFavouriteArtworkById(artworkId))
+    } else {
+      dispatch(
+        addFavouriteArtwork({
+          id: data.data.id,
+          image_id: data.data.image_id,
+          title: data.data.title
+        })
+      )
+    }
   }
 
   return (
@@ -24,7 +52,13 @@ export const ArtworkDetails = () => {
         <div className='font-bold'>{data.data.title}</div>
         <div>{data.data.artist_display}</div>
         <div>{data.data.department_title}</div>
-        <div className='w-fit bg-red-800 m-3'>
+        <div className='relative m-3'>
+          <StarIcon
+            className={`absolute top-4 right-4 h-10 text-white active:text-yellow-200 cursor-pointer ${
+              isFavourite ? 'text-yellow-500' : ''
+            }`}
+            onClick={toggleFavorite}
+          />
           <img
             src={`https://www.artic.edu/iiif/2/${data.data.image_id}/full/,843/0/default.jpg`}
             alt={`Image for ${data.data.title}`}

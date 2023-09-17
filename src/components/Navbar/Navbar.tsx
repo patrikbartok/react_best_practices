@@ -1,7 +1,7 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Navbar, Collapse, Typography, IconButton } from '@material-tailwind/react'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 export type NavBarProps = {
   title: string
@@ -13,13 +13,16 @@ export type NavListProps = {
 }
 
 function NavList({ navLinks }: NavListProps) {
+  const location = useLocation()
   return (
     <ul className='my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6'>
       {navLinks.map((link, index) => (
         <Typography key={index} as='li' variant='small' color='blue-gray' className='p-1 font-bold'>
           <NavLink
             to={link.url}
-            className='flex items-center hover:text-blue-500 transition-colors'
+            className={`flex items-center hover:text-blue-500 transition-colors ${
+              location.pathname.includes(link.url) ? 'text-blue-500' : ''
+            }`}
           >
             {link.label}
           </NavLink>
