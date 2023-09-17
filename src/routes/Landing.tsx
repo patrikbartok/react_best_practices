@@ -6,7 +6,7 @@ export const Landing = () => {
   const handleStart = () => {
     //add authentication logic here, to either redirect to protected or public routes' root
     //we are navigating to our only existing route.
-    navigate('/public/artworks')
+    navigate('/public/artworks/browse')
   }
 
   return (

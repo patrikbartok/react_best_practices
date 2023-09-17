@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { useArtworks } from '../api/getArtworks'
@@ -11,20 +10,15 @@ import { PaginationControl } from '@/components/Pagination'
 
 export const ArtworkList = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+
   const paginationPage = Number(searchParams.get('page')) || 1
   const paginationLimit = Number(searchParams.get('limit')) || 25
   const searchQueryString = searchParams.get('q') || ''
-
   const { data, isLoading } = useArtworks({
     page: paginationPage,
     limit: paginationLimit,
     q: searchQueryString
   })
-
-  const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    searchParams.set('limit', e.target.value)
-    setSearchParams(searchParams)
-  }
 
   const handlePageChange = (page: string) => {
     searchParams.set('page', page)
@@ -33,6 +27,11 @@ export const ArtworkList = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     searchParams.set('q', e.target.value)
+    setSearchParams(searchParams)
+  }
+
+  const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    searchParams.set('limit', e.target.value)
     setSearchParams(searchParams)
   }
 
