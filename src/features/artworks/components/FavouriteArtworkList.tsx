@@ -1,3 +1,5 @@
+import { Typography } from '@material-tailwind/react'
+
 import { ArtworkListItem } from './ArtworkListItem'
 
 import { Head } from '@/components/Head'
@@ -8,10 +10,10 @@ export const FavouriteArtworkList = () => {
   const favouriteArtworks = useAppSelector(selectFavouriteArtworks)
   if (favouriteArtworks.length === 0) {
     return (
-      <>
+      <div className='flex flex-col items-center justify-center w-screen h-72'>
         <Head title={'Favourite Artworks'} />
-        <div>You have no favourite artworks.</div>
-      </>
+        <Typography variant='h6'>You have no favourite artworks.</Typography>
+      </div>
     )
   }
 

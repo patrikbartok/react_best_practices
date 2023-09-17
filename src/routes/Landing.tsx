@@ -1,3 +1,4 @@
+import { Button, Typography } from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
 
 export const Landing = () => {
@@ -10,12 +11,12 @@ export const Landing = () => {
   }
 
   return (
-    <button
-      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-      onClick={handleStart}
-    >
-      {' '}
-      Get Started{' '}
-    </button>
+    <div className='flex flex-col justify-items-center items-center h-screen'>
+      <Typography variant='h2'>Welcome to Artworks!</Typography>
+      <Typography variant='h6'>Continue as guest</Typography>
+      <Button className='m-4' onClick={handleStart}>
+        Get Started
+      </Button>
+    </div>
   )
 }

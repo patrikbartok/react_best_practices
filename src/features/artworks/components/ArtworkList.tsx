@@ -33,6 +33,13 @@ export const ArtworkList = () => {
     setSearchInput(e.target.value)
   }
 
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleSearchButton()
+    }
+  }
+
   const handleSearchButton = () => {
     searchParams.set('q', searchInput)
     setSearchParams(searchParams)
@@ -49,13 +56,14 @@ export const ArtworkList = () => {
     <>
       <Head title={'Artworks List'} />
 
-      <div className='relative flex w-full gap-2 md:w-max justify-center items-center'>
+      <div className='relative flex w-full gap-2 md:w-max justify-center items-center mx-auto mt-6'>
         <Input
           type='search'
           value={searchInput}
           onChange={handleSearchChange}
+          onKeyDown={handleSearchKeyPress}
           label='Type here...'
-          className='pr-20'
+          className='pr-24'
           containerProps={{
             className: 'min-w-[288px]'
           }}
