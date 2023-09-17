@@ -12,7 +12,6 @@ import { PaginationControl } from '@/components/Pagination'
 
 export const ArtworkList = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [searchInput, setSearchInput] = useState<string>('')
 
   const paginationPage = searchParams.get('page') || '1'
   const paginationLimit = searchParams.get('limit') || '25'
@@ -22,6 +21,8 @@ export const ArtworkList = () => {
     limit: paginationLimit,
     q: searchQueryString
   })
+
+  const [searchInput, setSearchInput] = useState<string>(searchQueryString)
 
   const handlePageChange = (page: number) => {
     searchParams.set('page', page.toString())
